@@ -347,6 +347,78 @@ summary(gmm_interaction2_lag35roe, diagnostics = TRUE)
 
 
 
+###############robustness without lagged
+gmm_final1w <- pgmm(ROA ~ TLEV_C + TLEV_SQ + SIZE + RISK + SALES + CASH + GDP +
+                     SUBINDUSTRY25301010 + SUBINDUSTRY25301030 + SUBINDUSTRY25301040|lag(TLEV_C, 2:4) + lag(TLEV_SQ, 2:4) +
+                     lag(RISK, 3:4) + lag(CASH, 3:4) + lag(SIZE_C, 3:4) + lag(SALES, 3:4),
+                   data = filtered_panel,effect = "twoways",model = "twosteps",transformation = "ld",collapse = TRUE,
+                   robust = TRUE,system = TRUE)
+
+gmm_final2w <- pgmm(ROA ~ TLEV_C + SIZE + RISK + SALES + CASH + GDP +
+                     SUBINDUSTRY25301010 + SUBINDUSTRY25301030 + SUBINDUSTRY25301040|lag(TLEV_C, 2:4) + 
+                     lag(RISK, 3:4) + lag(CASH, 3:4) + lag(SIZE_C, 3:4) + lag(SALES, 3:4),
+                   data = filtered_panel,effect = "twoways",model = "twosteps",transformation = "ld",collapse = TRUE,
+                   robust = TRUE,system = TRUE)
+
+gmm_interactionw <- pgmm(ROA ~  TLEV_C + TLEV_COVID + SIZE + RISK + SALES + CASH + GDP +
+                          SUBINDUSTRY25301010 + SUBINDUSTRY25301030 + SUBINDUSTRY25301040|lag(TLEV_C, 2:4) + 
+                          lag(TLEV_COVID, 2:4) +lag(RISK, 3:4) + lag(CASH, 3:4) + lag(SIZE_C, 3:4) + lag(SALES, 3:4),
+                        data = filtered_panel,effect = "twoways",model = "twosteps",transformation = "ld",collapse = TRUE,
+                        robust = TRUE,system = TRUE)
+
+gmm_interaction2w <- pgmm(
+  ROA ~ TLEV_C + TLEV_SQ + TLEV_COVID + TLEV_SQ_COVID + SIZE + RISK + SALES + CASH + GDP + 
+    SUBINDUSTRY25301010 + SUBINDUSTRY25301030 + SUBINDUSTRY25301040|lag(TLEV_C, 3:4) + 
+    lag(TLEV_SQ, 3:4) + lag(TLEV_COVID, 3:4) + lag(TLEV_SQ_COVID, 3:4) +lag(RISK, 3:4) + lag(CASH, 3:4) + 
+    lag(SIZE_C, 3:4) + lag(SALES, 3:4),data = filtered_panel, effect = "twoways",model = "twosteps",transformation = "ld",
+  collapse = TRUE,robust = TRUE,system = TRUE)
+
+summary(gmm_final1w, diagnostics = TRUE)
+summary(gmm_final2w, diagnostics = TRUE)
+summary(gmm_interactionw, diagnostics = TRUE)
+summary(gmm_interaction2w, diagnostics = TRUE)
+
+#############System GMM ROE#########
+
+gmm_final1roew <- pgmm(ROE ~ TLEV_C + TLEV_SQ + SIZE + RISK + SALES + CASH + GDP +
+                        SUBINDUSTRY25301010 + SUBINDUSTRY25301030 + SUBINDUSTRY25301040|lag(TLEV_C, 2:4) 
+                      + lag(TLEV_SQ, 2:3) + lag(RISK, 2:3) + lag(CASH, 2:3) + lag(SIZE_C, 2:3) + lag(SALES, 2:3),
+                      data = filtered_panel,effect = "twoways",model = "twosteps",transformation = "ld",
+                      collapse = TRUE,robust = TRUE,system = TRUE)
+
+
+gmm_final2roew <- pgmm(ROE ~ TLEV_C + SIZE + RISK + SALES + CASH + GDP +
+                        SUBINDUSTRY25301010 + SUBINDUSTRY25301030 + SUBINDUSTRY25301040|lag(TLEV_C, 3:4) + 
+                        lag(RISK, 3:4) + lag(CASH, 3:4) + lag(SIZE_C, 3:4) + lag(SALES, 3:4),
+                      data = filtered_panel,effect = "twoways",model = "twosteps",transformation = "ld",collapse = TRUE,
+                      robust = TRUE,system = TRUE)
+
+gmm_interactionroew <- pgmm(ROE ~ TLEV_C + TLEV_COVID + SIZE + RISK + SALES + CASH + GDP +
+                             SUBINDUSTRY25301010 + SUBINDUSTRY25301030 + SUBINDUSTRY25301040|lag(TLEV_C, 2:4) + 
+                             lag(TLEV_COVID, 3:4) +lag(RISK, 3:4) + lag(CASH, 3:4) + lag(SIZE_C, 3:4) + lag(SALES, 3:4),
+                           data = filtered_panel,effect = "twoways",model = "twosteps",transformation = "ld",
+                           collapse = TRUE,robust = TRUE,system = TRUE)
+
+gmm_interaction2roew <- pgmm(ROE ~ TLEV_C + TLEV_SQ + TLEV_COVID + TLEV_SQ_COVID + 
+                              SIZE + RISK + SALES + CASH + GDP + SUBINDUSTRY25301010 + SUBINDUSTRY25301030 + SUBINDUSTRY25301040|
+                           lag(TLEV_C, 2:3) + lag(TLEV_SQ, 2:4) + lag(TLEV_COVID, 2:3) + lag(TLEV_SQ_COVID, 2:3) +
+                              lag(RISK, 2:3) + lag(CASH, 2:3) + lag(SIZE_C, 2:3) + lag(SALES, 2:3),
+                            data = filtered_panel,effect = "twoways",model = "twosteps",transformation = "ld",
+                            collapse = TRUE,robust = FALSE,system = TRUE)
+
+summary(gmm_final1roew, diagnostics = TRUE)
+summary(gmm_final2roew, diagnostics = TRUE)
+summary(gmm_interactionroew, diagnostics = TRUE)
+summary(gmm_interaction2roew, diagnostics = TRUE)
+
+
+
+
+
+
+
+
+
 
 
 
